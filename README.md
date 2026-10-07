@@ -4,7 +4,20 @@ MIDIシーケンサー **Cherry 1.4.3** と **chysharp適用版（Cherry 1.4.3#�
 
 カーソルを合わせたペインのスクロールバーを操作します。クリックしてフォーカスを移さずに、ノートリスト・トラックリスト・ピアノロールなどをスクロールできます。
 
-このリポジトリにはパッチとそのソースコードのみを収録しています。**Cherry本体およびパッチ適用済みの実行ファイルは含まれていません。**
+このリポジトリにはホイール対応パッチ、改造版パッチャー **ChySharp Customの実行ファイル**、およびソースコードを収録しています。**Cherry本体・`chysharp.bin`・改造済みCherryの実行ファイルは含まれていません。**
+
+## ChySharp Customを使う
+
+chysharpの修正項目を選んでホイール対応も一度に組み込みたい場合は、[改造版パッチャー `chysharp-custom.exe`](patches/chysharp-custom/chysharp-custom.exe) を使えます。
+
+1. `chysharp-custom.exe` を手元のCherryのフォルダーへコピーします。
+2. 元のchysharp配布物の `chysharp.bin` を、その隣に置きます。
+3. 起動し、ホイール項目を有効にして「保存」を押します。
+4. 別名で作成される `cherry-custom.exe` を起動します。
+
+元の15項目を個別に選べます。既存ファイルは上書きしません。[詳しい使い方・ソース・ビルド手順](patches/chysharp-custom/README.md)を参照してください。
+
+以下は、手元の `cherry.exe` にホイール処理だけを追加する従来のパッチの説明です。
 
 ## できること
 

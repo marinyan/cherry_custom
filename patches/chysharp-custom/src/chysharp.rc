@@ -1,0 +1,175 @@
+#ifndef IDC_STATIC
+#define IDC_STATIC -1
+#endif
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "windows.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(65001)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""windows.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CHYSHARP DIALOGEX 0, 0, 300, 270
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Cherry 1.4.3# Patcher - Custom Wheel"
+CLASS "ChySharpPatClass"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "保存(&S)",IDC_SAVE,115,249,68,14
+    CONTROL         "拍子の分子を編集可能にする",IDC_TIMESIG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,286,14
+    CONTROL         "NRPN/RPNをmidiOutShortMsgで送信する",IDC_RPNFIX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,21,286,14
+    CONTROL         "SMF出力時に歌詞イベントを出力する",IDC_LYRICS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,35,286,14
+    CONTROL         "SMF出力時に拍子・調号イベントの順を反転する",IDC_SWAPTIMESIGORDER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,49,286,14
+    CONTROL         "SMF出力時に空白マーカを出力しないようにする",IDC_NONULLMARKER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,64,286,14
+    CONTROL         "カーソル位置の縦・横ホイールスクロールを有効にする",IDC_MOUSEWHEEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,78,286,14
+    CONTROL         "Rhythm/SFXトラックにおいてデュレーションを記憶する",IDC_REMEMBERDURATION,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,92,286,14
+    CONTROL         "Rhythm/SFXトラックにおいてデュレーションをピアノロールから変更可能にする",IDC_DURATIONCHANGE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,107,286,14
+    CONTROL         "CC入力ダイアログにおいて数字以外の入力を可能にする",IDC_ACCEPTEXCEPTNUM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,121,286,14
+    CONTROL         "CC入力ダイアログにおける値の解釈をイベントリスト互換にする",IDC_EVENTLISTCOMPATIBLE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,136,286,14
+    CONTROL         "リアルタイム入力におけるアフタータッチの番号を修正する",IDC_PATFIX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,150,286,14
+    CONTROL         "cherry.iniにおいてControlキーの代わりにControlChangeキーを読むようにする",IDC_INIFIX,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,164,286,14
+    CONTROL         "デュレーションリストを長くしてスクロールバーを取り除く",IDC_DURREMOVESCROLLBAR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,179,286,14
+    CONTROL         "デュレーションリストの全角文字を半角文字に修正する",IDC_DURFIXZENKAKU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,193,286,14
+    CONTROL         "ファイル保存時の拡張子補完を小文字にする",IDC_LOWEREXT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,208,286,14
+    CTEXT           "別名で作成します。既存ファイルは上書きしません。",IDC_STATIC,7,229,286,14,SS_SUNKEN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_CHYSHARP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 263
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,1,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104b0"
+        BEGIN
+            VALUE "CompanyName", "gochaism"
+            VALUE "FileDescription", "Cherry 1.4.3# Patcher - Custom Wheel"
+            VALUE "FileVersion", "1.1.0.0"
+            VALUE "InternalName", "chysharp"
+            VALUE "LegalCopyright", "Presented by gocha"
+            VALUE "OriginalFilename", "chysharp-custom.exe"
+            VALUE "ProductName", "Cherry 1.4.3# Patcher - Custom Wheel"
+            VALUE "ProductVersion", "1.1.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_CHYSHARP            ICON                    "res\\chysharp.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+1                       RT_MANIFEST             "res\\chysharp.exe.manifest"
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
