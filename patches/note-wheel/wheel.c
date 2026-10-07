@@ -1,6 +1,6 @@
 /* Cherry 1.4.3: in-process UI-thread wheel adapter, no extra DLL or CRT.
  * Original WinMain / import thunk RVAs are from src.rar/chysharp-mwhook.asm.
- * The installer verifies the exact original executable before using them.
+ * The installer verifies the exact original or supported chysharp executable.
  */
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -133,6 +133,8 @@ int WINAPI WheelMain(HINSTANCE instance, HINSTANCE previous, LPSTR command, int 
     HMODULE (WINAPI *load)(LPCSTR) = (void *)(base + 0x9dc2a);
     FARPROC (WINAPI *get)(HMODULE, LPCSTR) = (void *)(base + 0x9dc30);
     DWORD (WINAPI *currentThread)(void) = (void *)(base + 0x9dbd6);
+    /* Deliberately skip chysharp's old wheel initializer (0xe8200). Its other
+     * fixes live in the retained image and need no wrapper initialization. */
     int (WINAPI *realMain)(HINSTANCE, HINSTANCE, LPSTR, int) = (void *)(base + 0x8bd5c);
     HMODULE user = load("user32.dll");
     int result;

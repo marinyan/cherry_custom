@@ -1,6 +1,6 @@
 # Cherry Custom
 
-MIDIシーケンサー **Cherry 1.4.3** に、マウスホイールによるスクロールを追加する改造パッチです。
+MIDIシーケンサー **Cherry 1.4.3** と **chysharp適用版（Cherry 1.4.3#）** に、マウスホイールによるスクロールを追加する改造パッチです。
 
 カーソルを合わせたペインのスクロールバーを操作します。クリックしてフォーカスを移さずに、ノートリスト・トラックリスト・ピアノロールなどをスクロールできます。
 
@@ -20,14 +20,25 @@ Windowsのスクロール行数・文字数の設定に従います。細かい�
 
 ## 対象
 
-- Windowsで動作する、未改造の **Cherry 1.4.3**。
+- Windowsで動作する、未改造の **Cherry 1.4.3**、または下記の **chysharp全項目有効版**。
 - 適用に使用するWindows PowerShell。
 - 通常の適用にはコンパイラー、追加DLL、常駐ソフトは不要です。
 
-適用時に原本のSHA-256を照合します。別バージョンや、`chysharp.exe`などで改造済みの実行ファイルには適用できません。
+適用時に入力ファイルのSHA-256を照合し、次の2種類を自動判別します。chysharpの一部項目を無効にした版、異なるバージョン、その他の改造版には対応していません。
+
+| 入力 | 出力ファイル |
+| --- | --- |
+| 未改造のCherry 1.4.3 | `cherry-wheel.exe` |
+| chysharp全項目有効版 | `cherry-sharp-wheel.exe` |
+
+対応するSHA-256：
 
 ```text
+Cherry 1.4.3:
 B562CB56BAFF6651DFCA0A14A79B19E261E4282319A5911D3238E56186B1CD54
+
+chysharp全項目有効版:
+659FA2948FC22689E2D87C0F36E33A504E9D94B24693D4E3315F5904E66C9FB3
 ```
 
 ## 使い方
@@ -35,8 +46,8 @@ B562CB56BAFF6651DFCA0A14A79B19E261E4282319A5911D3238E56186B1CD54
 1. このリポジトリをcloneするか、GitHubの **Code → Download ZIP** から取得して展開します。
 2. リポジトリ直下に `cherry_1` フォルダーを用意し、対象の `cherry.exe` と通常の動作に必要な同梱ファイルを配置します。
 3. 使用中のCherryで必要なデータを保存し、終了します。
-4. `patches/note-wheel/apply.cmd` をダブルクリックします。
-5. `Created:` または `Already applied:` が表示されたら、`cherry_1/cherry-wheel.exe` を起動します。
+4. `patches/note-wheel/apply.cmd` をダブルクリックします。chysharp版専用の入口として `apply-sharp.cmd` も使えます。
+5. `Created:` または `Already applied:` が表示されたら、表示された出力ファイルを起動します。未改造版なら `cherry_1/cherry-wheel.exe`、chysharp版なら `cherry_1/cherry-sharp-wheel.exe` です。
 
 配置例：
 
@@ -49,16 +60,23 @@ cherry_custom/
 └─ patches/
    └─ note-wheel/
       ├─ apply.cmd        ← ダブルクリックして適用
+      ├─ apply-sharp.cmd  ← chysharp版専用の入口
       ├─ apply.ps1
       ├─ wheel-hook.bin
       └─ …
 ```
 
-適用後は、同じ `cherry_1` フォルダーに `cherry-wheel.exe` が生成されます。元の `cherry.exe` は変更しません。
+適用後は、同じ `cherry_1` フォルダーに別名の実行ファイルが生成されます。入力の `cherry.exe` は変更しません。
 
-**元に戻す場合は、`cherry-wheel.exe` を終了し、元の `cherry.exe` を起動してください。**
+**元に戻す場合は、生成された実行ファイルを終了し、入力に使った `cherry.exe` を起動してください。**
 
-異なる内容の `cherry-wheel.exe` がすでに存在する場合は、上書きせずに停止します。別名で保管してから再実行するか、出力先を指定してください。別フォルダーへの適用方法は[パッチの詳細手順](patches/note-wheel/README.md)に記載しています。
+出力先に異なる内容のファイルがすでに存在する場合は、上書きせずに停止します。別名で保管してから再実行するか、出力先を指定してください。別フォルダーへの適用方法は[パッチの詳細手順](patches/note-wheel/README.md)に記載しています。
+
+## chysharp版への適用について
+
+chysharpの旧ホイール処理を今回の縦横ホイール処理に置き換えます。2つのホイール処理が同時に動くことはありません。RPN/NRPN・歌詞出力・アフタータッチなど、chysharpのその他の修正はそのまま保持します。
+
+**適用順は「chysharp → このパッチ」です。** このパッチの後に `chysharp.exe` を実行すると、chysharp側が実行ファイルを作り直すため、今回のホイール対応は失われます。
 
 ## 動作確認
 
@@ -67,6 +85,7 @@ cherry_custom/
 - ピアノロールと下側コントロール表示での、カーソル位置による対象の切り替え。
 - ホイール入力の端数、方向反転、スクロール無効、ページ単位の計算テスト。
 - 原本への上書き拒否、対象外バイナリの拒否、再適用時の無変更。
+- 両対応版で既存コード・データ・リソースを維持することのバイト比較と、chysharp版での縦横スクロール・二重スクロール防止。
 
 横方向はWindowsの横ホイール入力で確認しています。個別のマウス機種・設定ソフトの割り当ては未検証です。
 

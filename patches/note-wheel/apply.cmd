@@ -6,5 +6,5 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-echo Start cherry_1\cherry-wheel.exe to use wheel scrolling.
+echo Start the executable shown above to use wheel scrolling.
 pause

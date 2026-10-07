@@ -1,16 +1,35 @@
 param(
     [string]$Source = (Join-Path $PSScriptRoot '../../cherry_1/cherry.exe'),
-    [string]$Output = (Join-Path $PSScriptRoot '../../cherry_1/cherry-wheel.exe')
+    [string]$Output,
+    [ValidateSet('Auto', 'Original', 'ChySharp')]
+    [string]$Variant = 'Auto'
 )
 $ErrorActionPreference = 'Stop'
 $sourcePath = (Resolve-Path -LiteralPath $Source).Path
+[byte[]]$original = [IO.File]::ReadAllBytes($sourcePath)
+# Hash the bytes that will actually be patched, rather than reopening the path.
+$hasher = [Security.Cryptography.SHA256]::Create()
+try { $sourceHash = [BitConverter]::ToString($hasher.ComputeHash($original)).Replace('-', '') }
+finally { $hasher.Dispose() }
+$profiles = @{
+    'B562CB56BAFF6651DFCA0A14A79B19E261E4282319A5911D3238E56186B1CD54' = @{
+        Variant = 'Original'; Main = 0x48bd5c; OutputName = 'cherry-wheel.exe'
+    }
+    '659FA2948FC22689E2D87C0F36E33A504E9D94B24693D4E3315F5904E66C9FB3' = @{
+        Variant = 'ChySharp'; Main = 0x4e8200; OutputName = 'cherry-sharp-wheel.exe'
+    }
+}
+$profile = $profiles[$sourceHash]
+if (!$profile) {
+    throw 'Unsupported executable. Use original Cherry 1.4.3 or the verified chysharp all-options-enabled build. See README for SHA-256 hashes.'
+}
+if ($Variant -ne 'Auto' -and $Variant -ne $profile.Variant) {
+    throw "Variant mismatch: requested $Variant, detected $($profile.Variant). No files changed."
+}
+if (!$Output) { $Output = Join-Path (Split-Path -Parent $sourcePath) $profile.OutputName }
 $outputPath = [IO.Path]::GetFullPath($Output)
 if ($sourcePath -eq $outputPath) { throw 'Source and output must be different. The original is never overwritten.' }
-$expected = 'B562CB56BAFF6651DFCA0A14A79B19E261E4282319A5911D3238E56186B1CD54'
-if ((Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash -ne $expected) {
-    throw 'Unsupported executable. Use the original Cherry 1.4.3 cherry.exe included in this workspace (not chysharp output).'
-}
-[byte[]]$original = [IO.File]::ReadAllBytes($sourcePath)
+Write-Host "Detected: $($profile.Variant)"
 [byte[]]$payload = [IO.File]::ReadAllBytes((Join-Path $PSScriptRoot 'wheel-hook.bin'))
 function U16($bytes, $offset) { [BitConverter]::ToUInt16($bytes, $offset) }
 function U32($bytes, $offset) { [BitConverter]::ToUInt32($bytes, $offset) }
@@ -46,7 +65,7 @@ $new = ReadPE $payload
 $shift = (U32 $original ($old.Opt + 56)) - ($new.Sections | Measure-Object RVA -Minimum).Minimum
 if ((U32 $payload ($new.Opt + 28)) -ne (U32 $original ($old.Opt + 28))) { throw 'Image bases differ.' }
 if ((U32 $payload ($new.Opt + 104)) -ne 0) { throw 'Payload must not import DLLs.' }
-if ((U32 $original 0x9db94) -ne 0x48bd5c) { throw 'Original WinMain signature mismatch.' }
+if ((U32 $original 0x9db94) -ne $profile.Main) { throw 'Source WinMain signature mismatch.' }
 $fileAlignment = U32 $original ($old.Opt + 36)
 $sectionAlignment = U32 $original ($old.Opt + 32)
 $oldRelocRVA = U32 $original ($old.Opt + 136)
@@ -111,6 +130,9 @@ Put32 $result ($old.Opt+60) (Align $headerEnd $fileAlignment)
 Put32 $result ($old.Opt+64) 0
 Put32 $result ($old.Opt+136) $lastRVA
 Put32 $result ($old.Opt+140) $relocations.Length
+# Both variants enter WheelMain, which calls Cherry's original WinMain directly.
+# In the ChySharp variant this bypasses ONLY its old wheel-hook initializer;
+# all other fixes and the existing .text#/.data#/.rdata# sections are retained.
 Put32 $result 0x9db94 ((U32 $original ($old.Opt+28))+$shift+(U32 $payload ($new.Opt+16)))
 if (Test-Path -LiteralPath $outputPath) {
     $hasher = [Security.Cryptography.SHA256]::Create()
