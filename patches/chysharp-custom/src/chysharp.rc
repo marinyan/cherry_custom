@@ -55,13 +55,13 @@ END
 // Dialog
 //
 
-IDD_CHYSHARP DIALOGEX 0, 0, 300, 270
+IDD_CHYSHARP DIALOGEX 0, 0, 300, 286
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Cherry 1.4.3# Patcher - Custom Wheel"
+CAPTION "Cherry 1.4.3# Patcher - Custom"
 CLASS "ChySharpPatClass"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "保存(&S)",IDC_SAVE,115,249,68,14
+    DEFPUSHBUTTON   "保存(&S)",IDC_SAVE,115,265,68,14
     CONTROL         "拍子の分子を編集可能にする",IDC_TIMESIG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,286,14
     CONTROL         "NRPN/RPNをmidiOutShortMsgで送信する",IDC_RPNFIX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,21,286,14
     CONTROL         "SMF出力時に歌詞イベントを出力する",IDC_LYRICS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,35,286,14
@@ -82,7 +82,8 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,179,286,14
     CONTROL         "デュレーションリストの全角文字を半角文字に修正する",IDC_DURFIXZENKAKU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,193,286,14
     CONTROL         "ファイル保存時の拡張子補完を小文字にする",IDC_LOWEREXT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,208,286,14
-    CTEXT           "別名で作成します。既存ファイルは上書きしません。",IDC_STATIC,7,229,286,14,SS_SUNKEN
+    CONTROL         "Ctrl+Sで保存、Ctrl+Zで元に戻す（旧Ctrl+SはCtrl+Alt+Sへ）",IDC_STANDARDKEYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,222,286,14
+    CTEXT           "別名で作成します。既存ファイルは上書きしません。",IDC_STATIC,7,245,286,14,SS_SUNKEN
 END
 
 
@@ -99,7 +100,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 293
         TOPMARGIN, 7
-        BOTTOMMARGIN, 263
+        BOTTOMMARGIN, 279
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -111,8 +112,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,0
- PRODUCTVERSION 1,1,0,0
+ FILEVERSION 1,2,0,0
+ PRODUCTVERSION 1,2,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -128,13 +129,13 @@ BEGIN
         BLOCK "041104b0"
         BEGIN
             VALUE "CompanyName", "gochaism"
-            VALUE "FileDescription", "Cherry 1.4.3# Patcher - Custom Wheel"
-            VALUE "FileVersion", "1.1.0.0"
+            VALUE "FileDescription", "Cherry 1.4.3# Patcher - Custom"
+            VALUE "FileVersion", "1.2.0.0"
             VALUE "InternalName", "chysharp"
             VALUE "LegalCopyright", "Presented by gocha"
             VALUE "OriginalFilename", "chysharp-custom.exe"
-            VALUE "ProductName", "Cherry 1.4.3# Patcher - Custom Wheel"
-            VALUE "ProductVersion", "1.1.0.0"
+            VALUE "ProductName", "Cherry 1.4.3# Patcher - Custom"
+            VALUE "ProductVersion", "1.2.0.0"
         END
     END
     BLOCK "VarFileInfo"

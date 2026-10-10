@@ -32,6 +32,7 @@ typedef struct TagChySharpPrms
 	BOOL durRemoveBar;
 	BOOL durFixZenkaku;
 	BOOL useLwrCharExt;
+	BOOL standardKeys;
 } ChySharpPrms;
 
 BOOL chySharpSaveAs(LPCTSTR filename, ChySharpPrms* prm);

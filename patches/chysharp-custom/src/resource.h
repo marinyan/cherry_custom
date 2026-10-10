@@ -20,6 +20,7 @@
 #define IDC_DURREMOVESCROLLBAR          1014
 #define IDC_DURFIXZENKAKU               1015
 #define IDC_LOWEREXT                    1016
+#define IDC_STANDARDKEYS                1017
 
 // Next default values for new objects
 //

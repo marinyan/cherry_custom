@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <commdlg.h>
 #include "wheel-image.h"
+#include "keys-image.h"
 
 /* Custom extension: keep upstream author and distribution notices above. */
 static BOOL MakeSiblingPath(TCHAR *path, DWORD capacity, const TCHAR *name)
@@ -28,7 +29,7 @@ static BOOL MakeSiblingPath(TCHAR *path, DWORD capacity, const TCHAR *name)
 #define CHYSHARP_BINFNAME        _T("chysharp.bin")
 #define CHYSHARP_BINSIZE         926208
 #define CHYSHARP_SETTINGS_BASEID 1002
-#define CHYSHARP_SETTINGS_ENUM   15
+#define CHYSHARP_SETTINGS_ENUM   16
 
 
 BYTE* chySharpNewExe = NULL;
@@ -203,6 +204,7 @@ LRESULT CALLBACK chySharpDlgProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM
 					prm.durRemoveBar       = (IsDlgButtonChecked(hWnd, IDC_DURREMOVESCROLLBAR) == BST_CHECKED);
 					prm.durFixZenkaku      = (IsDlgButtonChecked(hWnd, IDC_DURFIXZENKAKU) == BST_CHECKED);
 					prm.useLwrCharExt      = (IsDlgButtonChecked(hWnd, IDC_LOWEREXT) == BST_CHECKED);
+					prm.standardKeys       = (IsDlgButtonChecked(hWnd, IDC_STANDARDKEYS) == BST_CHECKED);
 
 					if (chySharpSaveAs(exeFilename, &prm))
                         MessageBox(hWnd, _T("保存しました。作成した実行ファイルを起動してください。"), _T("ChySharp Custom"), MB_OK | MB_ICONINFORMATION);
@@ -458,6 +460,15 @@ BOOL chySharpSaveAs(LPCTSTR filename, ChySharpPrms* prm)
         DWORD failure = ERROR_SUCCESS;
         if (prm->dispatchWheel && !WheelCreateImage(chySharpNewExe, CHYSHARP_BINSIZE, &output, &outputSize))
             return FALSE;
+        if (prm->standardKeys) {
+            BYTE *withKeys = NULL;
+            DWORD withKeysSize = 0;
+            BOOL keysOK = KeysCreateImage(output, outputSize, &withKeys, &withKeysSize);
+            if (output != chySharpNewExe) free(output);
+            if (!keysOK) return FALSE;
+            output = withKeys;
+            outputSize = withKeysSize;
+        }
         newExeFile = CreateFile(filename, GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
         if (newExeFile != INVALID_HANDLE_VALUE) {
             result = WriteFile(newExeFile, output, outputSize, &writtenSize, NULL) &&
