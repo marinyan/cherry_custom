@@ -10,14 +10,14 @@ MIDIシーケンサー **Cherry 1.4.3** と **chysharp適用版（Cherry 1.4.3#�
 
 chysharpの修正項目を選んでホイール対応も一度に組み込みたい場合は、[改造版パッチャー `chysharp-custom.exe`](patches/chysharp-custom/chysharp-custom.exe) を使えます。
 
-**Ctrl+Sで保存、Ctrl+ZでUndo** にも対応しています。元のAlt+BackspaceでのUndoは維持し、旧Ctrl+Sの「1ページ上」はCtrl+Alt+Sへ移します。
+**Ctrl+Sで保存、Ctrl+ZでUndo、Ctrl+Xで切り取り、Ctrl+Aですべて選択** に対応しています。**Ctrl+Oで開く、Ctrl+Nで新規作成、Ctrl+Shift+Sで名前を付けて保存** も使えます。元のCtrl+S／X／Aの操作はCtrl+Alt+S／X／Aへ移し、Alt+BackspaceやShift+Deleteなどの従来のキーも維持します。
 
 1. `chysharp-custom.exe` を手元のCherryのフォルダーへコピーします。
 2. 元のchysharp配布物の `chysharp.bin` を、その隣に置きます。
-3. 起動し、ホイール項目とCtrl+S／Ctrl+Zの項目を有効にして「保存」を押します。
+3. 起動し、ホイール項目と「標準ショートカット」を有効にして「保存」を押します。
 4. 別名で作成される `cherry-custom.exe` を起動します。
 
-元の15項目とショートカット項目を個別に選べます。既存ファイルは上書きしません。以前の `cherry-custom.exe` がある場合は `cherry-custom-keys.exe` など別名で作り直してください。[詳しい使い方・ソース・ビルド手順](patches/chysharp-custom/README.md)を参照してください。
+元の15項目とショートカット項目を個別に選べます。既存ファイルは上書きしません。以前の改造版がある場合は `cherry-custom-keys-v13.exe` など別名で作り直してください。[詳しい使い方・ソース・ビルド手順](patches/chysharp-custom/README.md)を参照してください。
 
 以下は、手元の `cherry.exe` にホイール処理だけを追加する従来のパッチの説明です。
 

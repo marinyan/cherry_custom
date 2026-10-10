@@ -82,7 +82,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,179,286,14
     CONTROL         "デュレーションリストの全角文字を半角文字に修正する",IDC_DURFIXZENKAKU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,193,286,14
     CONTROL         "ファイル保存時の拡張子補完を小文字にする",IDC_LOWEREXT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,208,286,14
-    CONTROL         "Ctrl+Sで保存、Ctrl+Zで元に戻す（旧Ctrl+SはCtrl+Alt+Sへ）",IDC_STANDARDKEYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,222,286,14
+    CONTROL         "標準ショートカット（Ctrl+S/Z/X/A/O/N・Ctrl+Shift+S）",IDC_STANDARDKEYS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,222,286,14
     CTEXT           "別名で作成します。既存ファイルは上書きしません。",IDC_STATIC,7,245,286,14,SS_SUNKEN
 END
 
@@ -112,8 +112,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,0
- PRODUCTVERSION 1,2,0,0
+ FILEVERSION 1,3,0,0
+ PRODUCTVERSION 1,3,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -130,12 +130,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "gochaism"
             VALUE "FileDescription", "Cherry 1.4.3# Patcher - Custom"
-            VALUE "FileVersion", "1.2.0.0"
+            VALUE "FileVersion", "1.3.0.0"
             VALUE "InternalName", "chysharp"
             VALUE "LegalCopyright", "Presented by gocha"
             VALUE "OriginalFilename", "chysharp-custom.exe"
             VALUE "ProductName", "Cherry 1.4.3# Patcher - Custom"
-            VALUE "ProductVersion", "1.2.0.0"
+            VALUE "ProductVersion", "1.3.0.0"
         END
     END
     BLOCK "VarFileInfo"
